@@ -1,0 +1,92 @@
+<table
+  id="users-list-table"
+  class="table table-striped table-hover container border"
+>
+  <thead>
+    <tr>
+      <th scope="col" *ngFor="let title of titles">{{ title }}</th>
+      <th>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="addVenta()">
+            <i class="bi bi-card-heading"></i>{{' '}}<i class="bi bi-plus-lg"></i>
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let venta of ventas | slice: currentItem : finalItem">
+    <tr>
+      <th scope="row">{{ venta.id }}</th>
+      <td>{{ venta.nombre_cliente }}</td>
+      <td>{{ venta.numdoc_cliente }}</td>
+      <td>{{ venta.stationname }}</td>
+      <td>{{ venta.cardname }}</td>
+      <td>
+        <button
+          id="users-list-button-options" type="button" class="btn btn-primary"
+          data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="editVenta(venta.id)"
+        >
+          <i class="bi bi-pencil-square"></i>
+        </button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-primary" 
+          data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="removeVenta(venta.id)"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<div class="btn-group centro" role="group" aria-label="Button group with nested dropdown" >
+  <button type="button" class="btn btn-outline-secondary" 
+    (click)="startPage()" 
+    [disabled]="active === false || currentItem === 0">
+    <i class="bi bi-skip-backward-fill"></i>
+  </button>
+  <button type="button" class="btn btn-outline-secondary" 
+    (click)="prevPage(currentItem, finalItem)" 
+    [disabled]="active === false || currentItem === 0">
+    <i class="bi bi-skip-start-fill"></i>
+  </button>
+  <div *ngFor="let page of pages" >
+    <button type="button" *ngIf="positivePage>=page && negativePage<=page"
+      class="btn btn-outline-secondary" (click)="perPage(page); getVentas(page)">
+      {{page}}
+    </button>
+  </div>
+  <button type="button" class="btn btn-outline-secondary" 
+    (click)="nextPage(currentItem, finalItem)" 
+    [disabled]="last === true ">
+    <i class="bi bi-skip-end-fill"></i>
+  </button>
+  <button type="button" class="btn btn-outline-secondary" 
+    (click)="endPage()" 
+    [disabled]="last === true">
+    <i class="bi bi-skip-forward-fill"></i>
+  </button>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="add === true">Nueva Venta</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="edit === true">Editar Venta</h5>
+        <h5 class="modal-title" id="exampleModalLabel" *ngIf="remove === true">Eliminar Venta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  (click)="resetComponent()"></button>
+      </div>
+      <div class="modal-body">
+        <p  *ngIf="remove === true">Si realmente desea eliminar esta venta, confirme su operación.</p>
+        <app-ventas-add *ngIf="add === true"></app-ventas-add>
+        <app-ventas-edit *ngIf="edit === true"></app-ventas-edit>
+      </div>
+      <div class="modal-footer" *ngIf="remove === true">
+        <button type="button" class="btn btn-primary" 
+        data-bs-dismiss="modal" *ngIf="remove === true" (click)="deleteItem()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>

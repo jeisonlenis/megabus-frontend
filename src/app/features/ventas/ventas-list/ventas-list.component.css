@@ -1,0 +1,17 @@
+#users-list-table {
+    margin-top: 80px;
+}
+
+#users-list-table button {
+    margin-left: 10px;
+}
+
+#exampleModal {
+    margin-top: 100px;
+}
+
+.centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

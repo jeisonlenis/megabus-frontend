@@ -1,0 +1,72 @@
+<form [formGroup]="addTarjetasForm">
+    <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          placeholder="Nombre Tarjeta"
+          formControlName="nombre"
+        />
+      <label for="nombre">Nombre Tarjeta</label>
+    </div>
+  
+    <div class="alert alert-danger" role="alert" *ngIf="addTarjetasForm.get('nombre').errors && (addTarjetasForm.get('nombre').dirty || addTarjetasForm.get('nombre').touched)">
+      <small severity="error" *ngIf="addTarjetasForm.get('nombre').hasError('required')">
+        Nombre de cliente es requerido.
+      </small>
+      <small *ngIf="addTarjetasForm.get('nombre').hasError('minlength')">
+        El nombre debe tener al menos 15 caracteres.
+      </small>
+      <small *ngIf="addTarjetasForm.get('nombre').hasError('pattern')">
+        Por favor digita solo letras.
+      </small>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        id="precio"
+        placeholder="Precio"
+        formControlName="precio"
+      />
+      <label for="precio">Precio</label>
+    </div>
+  
+    <div class="alert alert-danger" role="alert" *ngIf="addTarjetasForm.get('precio').errors && (addTarjetasForm.get('precio').dirty || addTarjetasForm.get('precio').touched)">
+      <small severity="error" *ngIf="addTarjetasForm.get('precio').hasError('required')">
+        Número de celular es requerido.
+      </small>
+      <small *ngIf="addTarjetasForm.get('precio').hasError('minlength')">
+        Número de celular debe tener 4 caracteres.
+      </small>
+      <small *ngIf="addTarjetasForm.get('precio').hasError('pattern')">
+        Por favor digita solo números.
+      </small>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        id="unidades"
+        placeholder="Unidades"
+        formControlName="unidades"
+      />
+      <label for="unidades">Unidades</label>
+    </div>
+  
+    <div class="alert alert-danger" role="alert" *ngIf="addTarjetasForm.get('unidades').errors && (addTarjetasForm.get('unidades').dirty || addTarjetasForm.get('unidades').touched)">
+      <small severity="error" *ngIf="addTarjetasForm.get('unidades').hasError('required')">
+        Número de celular es requerido.
+      </small>
+      <small *ngIf="addTarjetasForm.get('unidades').hasError('minlength')">
+        Número de celular debe tener 1 caracteres.
+      </small>
+      <small *ngIf="addTarjetasForm.get('unidades').hasError('pattern')">
+        Por favor digita solo números.
+      </small>
+    </div>
+  </form>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="createTarjeta()" data-bs-dismiss="modal"
+    [disabled]="!addTarjetasForm.valid">Guardar</button>
+  </div>

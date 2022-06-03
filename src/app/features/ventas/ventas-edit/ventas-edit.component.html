@@ -1,0 +1,84 @@
+<form [formGroup]="editVentasForm">
+  <h4 class="centro">
+    Venta realizada por:
+    <small class="text-muted"> {{nombres + ' ' + apellidos}}</small>
+  </h4>
+  <div class="form-floating mb-3">
+    <select class="form-select" id="estacion" formControlName="estacion">
+      <option [value]="null" disabled>Opciones</option>
+      <option *ngFor="let estacion of estaciones[0];" [value]="estacion.id">
+        {{ estacion.nombre }}
+      </option>
+    </select>
+    <label for="estacion">Estacion</label>
+  </div>
+
+  <div class="alert alert-danger" role="alert" *ngIf="editVentasForm.get('estacion').errors && (editVentasForm.get('estacion').dirty || editVentasForm.get('estacion').touched)">
+    <small severity="error" *ngIf="editVentasForm.get('estacion').hasError('required') || editVentasForm.get('estacion').value === null">
+      Estacion es requerido.
+    </small>
+  </div>
+  <div class="form-floating mb-3">
+    <select class="form-select" id="tarjeta" formControlName="tarjeta">
+      <option [value]="null" disabled>Opciones</option>
+      <option *ngFor="let tarjeta of tarjetas[0];" [value]="tarjeta.id">
+        {{ tarjeta.nombre }}
+      </option>
+    </select>
+    <label for="tarjeta">Tipo Tarjeta</label>
+  </div>
+
+  <div class="alert alert-danger" role="alert" *ngIf="editVentasForm.get('tarjeta').errors && (editVentasForm.get('tarjeta').dirty || editVentasForm.get('tarjeta').touched)">
+    <small severity="error" *ngIf="editVentasForm.get('tarjeta').hasError('required') || editVentasForm.get('tarjeta').value === null">
+      Tipo de tarjeta es requerido.
+    </small>
+  </div>
+  <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        id="nombre_cliente"
+        placeholder="Nombre Cliente"
+        formControlName="nombre_cliente"
+      />
+    <label for="nombre_cliente">Nombre Cliente</label>
+  </div>
+
+  <div class="alert alert-danger" role="alert" *ngIf="editVentasForm.get('nombre_cliente').errors && (editVentasForm.get('nombre_cliente').dirty || editVentasForm.get('nombre_cliente').touched)">
+    <small severity="error" *ngIf="editVentasForm.get('nombre_cliente').hasError('required')">
+      Nombre de cliente es requerido.
+    </small>
+    <small *ngIf="editVentasForm.get('nombre_cliente').hasError('minlength')">
+      El nombre debe tener al menos 20 caracteres.
+    </small>
+    <small *ngIf="editVentasForm.get('nombre_cliente').hasError('pattern')">
+      Por favor digita solo letras.
+    </small>
+  </div>
+  <div class="form-floating mb-3">
+    <input
+      type="text"
+      class="form-control"
+      id="numdoc_cliente"
+      placeholder="Numero de Documento"
+      formControlName="numdoc_cliente"
+    />
+    <label for="numdoc_cliente">Numero de Documento</label>
+  </div>
+
+  <div class="alert alert-danger" role="alert" *ngIf="editVentasForm.get('numdoc_cliente').errors && (editVentasForm.get('numdoc_cliente').dirty || editVentasForm.get('numdoc_cliente').touched)">
+    <small severity="error" *ngIf="editVentasForm.get('numdoc_cliente').hasError('required')">
+      Número de celular es requerido.
+    </small>
+    <small *ngIf="editVentasForm.get('numdoc_cliente').hasError('minlength')">
+      Número de celular debe tener 10 caracteres.
+    </small>
+    <small *ngIf="editVentasForm.get('numdoc_cliente').hasError('pattern')">
+      Por favor digita solo números.
+    </small>
+  </div>
+</form>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="updateVenta()" data-bs-dismiss="modal"
+  [disabled]="!editVentasForm.valid">Guardar</button>
+</div>
